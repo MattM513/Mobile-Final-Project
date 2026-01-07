@@ -2,7 +2,6 @@ package fr.isep.subscout.ui.add
 
 import android.app.DatePickerDialog
 import android.widget.DatePicker
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -28,9 +27,7 @@ fun AddSubscriptionScreen(
 ) {
     var name by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
-    var currency by remember { mutableStateOf("USD") }
     var renewalDate by remember { mutableLongStateOf(System.currentTimeMillis()) }
-    var expanded by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
@@ -81,41 +78,6 @@ fun AddSubscriptionScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Currency Dropdown
-            Box(modifier = Modifier.fillMaxWidth()) {
-                OutlinedTextField(
-                    value = currency,
-                    onValueChange = {},
-                    label = { Text(stringResource(R.string.currency)) },
-                    readOnly = true,
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { expanded = true }
-                )
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text("USD") },
-                        onClick = {
-                            currency = "USD"
-                            expanded = false
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("EUR") },
-                        onClick = {
-                            currency = "EUR"
-                            expanded = false
-                        }
-                    )
-                }
-            }
-
             // Date Picker
             Button(
                 onClick = { datePickerDialog.show() },
@@ -132,7 +94,6 @@ fun AddSubscriptionScreen(
                         viewModel.addSubscription(
                             name = name,
                             amount = amount.toDoubleOrNull() ?: 0.0,
-                            currency = currency,
                             renewalDate = renewalDate
                         )
                         onBack()

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -56,15 +57,6 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    // Room
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-
     // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
     implementation("androidx.hilt:hilt-work:1.2.0")
@@ -80,4 +72,11 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation(libs.coil.compose)
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "786139525482",
+    "project_id": "subscout-f5d4d",
+    "storage_bucket": "subscout-f5d4d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786139525482:android:e4e3ab3216e616dbc7b513",
+        "android_client_info": {
+          "package_name": "fr.isep.subscout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm_n0JEBk7kyEGeVaCTzRcpzopmosAF3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
