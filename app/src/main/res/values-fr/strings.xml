@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SubScout</string>
+    <string name="home_title">Abonnements</string>
+    <string name="total_cost">Coût Mensuel Total: %s</string>
+    <string name="add_subscription">Ajouter un abonnement</string>
+    <string name="name">Nom</string>
+    <string name="amount">Montant</string>
+    <string name="currency">Devise</string>
+    <string name="renewal_date">Prochaine date de renouvellement</string>
+    <string name="save">Enregistrer</string>
+    <string name="loading">Chargement...</string>
+    <string name="error">Erreur</string>
+    <string name="no_subscriptions">Pas encore d\'abonnements</string>
+</resources>
