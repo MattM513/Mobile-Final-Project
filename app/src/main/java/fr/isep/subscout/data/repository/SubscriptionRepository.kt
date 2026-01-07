@@ -69,8 +69,12 @@ class SubscriptionRepository @Inject constructor(
     // --- Admin Features ---
 
     suspend fun getAllUsers(): List<User> {
-         // This might be heavy if many users, valid request for "Admin user that can modify all users"
-         return firestore.collection("users").get().await().toObjects(User::class.java)
+        return try {
+            firestore.collection("users").get().await().toObjects(User::class.java)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyList()
+        }
     }
 
     // For Admin to see a specific user's subscriptions

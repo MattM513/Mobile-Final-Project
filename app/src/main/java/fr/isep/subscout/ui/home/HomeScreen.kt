@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
@@ -16,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import fr.isep.subscout.R
 import fr.isep.subscout.data.model.Subscription
 import fr.isep.subscout.ui.MainViewModel
+
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -39,7 +41,12 @@ fun HomeScreen(
             TopAppBar(
                 title = { 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                         Icon(painter = androidx.compose.ui.res.painterResource(id = R.drawable.app_logo), contentDescription = null, modifier = Modifier.size(32.dp))
+                         // Use Image instead of Icon to preserve original colors
+                         androidx.compose.foundation.Image(
+                             painter = androidx.compose.ui.res.painterResource(id = R.drawable.app_logo), 
+                             contentDescription = null, 
+                             modifier = Modifier.size(32.dp)
+                         )
                          Spacer(modifier = Modifier.width(8.dp))
                          Text(stringResource(R.string.home_title)) 
                     }
@@ -53,8 +60,11 @@ fun HomeScreen(
                     IconButton(onClick = {
                         viewModel.signOut { onLogout() }
                     }) {
-                         // Using a nicer icon if possible, or text
-                        Text("Logout") 
+                        // Use a standard Exit/Logout icon using AutoMirrored for RTL support
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ExitToApp, 
+                            contentDescription = "Logout"
+                        )
                     }
                 }
             )
@@ -139,13 +149,15 @@ fun SubscriptionItem(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Logo
+            // Logo with Fallback
+            // If the Image fails to load, we can show an initial or icon
             coil.compose.AsyncImage(
                 model = fr.isep.subscout.util.LogoHelper.getLogoUrl(subscription.name),
                 contentDescription = null,
                 modifier = Modifier
                     .size(48.dp)
-                    .padding(end = 16.dp)
+                    .padding(end = 16.dp),
+                error = androidx.compose.ui.res.painterResource(android.R.drawable.ic_menu_info_details) // Fallback system icon
             )
 
             Column(modifier = Modifier.weight(1f)) {
