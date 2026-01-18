@@ -34,7 +34,7 @@
     ```
 2.  **Firebase Configuration** (Critical):
     *   This project requires a `google-services.json` file.
-    *   Create a project in the [Firebase Console](https://console.firebase.google.com/).
+    *   If you do not have it due to gitignore, create a project in the [Firebase Console](https://console.firebase.google.com/).
     *   Enable **Authentication** (Email/Password).
     *   Enable **Firestore Database**.
     *   Download `google-services.json` and place it in the `app/` folder.
