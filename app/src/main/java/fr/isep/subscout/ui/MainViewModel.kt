@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.isep.subscout.data.model.Subscription
 import fr.isep.subscout.data.model.User
+import fr.isep.subscout.data.model.UserWithSubscriptions
 import fr.isep.subscout.data.repository.AuthRepository
 import fr.isep.subscout.data.repository.SubscriptionRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,13 +32,9 @@ class MainViewModel @Inject constructor(
     val userRole: StateFlow<String> = _userRole.asStateFlow()
 
     // Subscriptions for the *current* logged in user
-    val mySubscriptions: StateFlow<List<Subscription>> = _currentUser.flatMapLatest { user ->
-        if (user != null) {
-            subscriptionRepository.getMySubscriptions()
-        } else {
-            flowOf(emptyList())
-        }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    // Subscriptions for the *current* logged in user
+    val mySubscriptions: StateFlow<List<Subscription>> = subscriptionRepository.mySubscriptions
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     // Admin: List of all users
     private val _allUsers = MutableStateFlow<List<User>>(emptyList())
@@ -52,7 +49,12 @@ class MainViewModel @Inject constructor(
         _currentUser.value = user
         if (user != null) {
             viewModelScope.launch {
-                _userRole.value = authRepository.getUserRole(user.uid)
+                try {
+                    _userRole.value = authRepository.getUserRole(user.uid)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    _userRole.value = "user" // Default to basic user on error
+                }
             }
         }
     }
@@ -105,10 +107,19 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    // Admin: List of all users with their subscriptions
+    private val _adminUsersData = MutableStateFlow<List<UserWithSubscriptions>>(emptyList())
+    val adminUsersData: StateFlow<List<UserWithSubscriptions>> = _adminUsersData.asStateFlow()
+
     // --- Admin Functions ---
     fun loadAllUsers() {
         viewModelScope.launch {
-             _allUsers.value = subscriptionRepository.getAllUsers()
+             val users = subscriptionRepository.getAllUsers()
+             val fullData = users.map { user ->
+                 val subs = subscriptionRepository.getUserSubscriptions(user.uid)
+                 UserWithSubscriptions(user, subs)
+             }
+             _adminUsersData.value = fullData
         }
     }
 }

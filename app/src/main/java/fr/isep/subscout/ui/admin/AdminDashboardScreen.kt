@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import fr.isep.subscout.data.model.Subscription
 import fr.isep.subscout.data.model.User
+import fr.isep.subscout.data.model.UserWithSubscriptions
 import fr.isep.subscout.ui.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,7 +23,7 @@ fun AdminDashboardScreen(
     onBack: () -> Unit,
     viewModel: MainViewModel = hiltViewModel()
 ) {
-    val allUsers by viewModel.allUsers.collectAsState()
+    val usersData by viewModel.adminUsersData.collectAsState()
     
     LaunchedEffect(Unit) {
         viewModel.loadAllUsers()
@@ -45,25 +46,39 @@ fun AdminDashboardScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(allUsers) { user ->
-                UserItem(user)
+            items(usersData) { data ->
+                UserItem(data)
             }
         }
     }
 }
 
 @Composable
-fun UserItem(user: User) {
+fun UserItem(data: UserWithSubscriptions) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("UID: ${user.uid}", style = MaterialTheme.typography.bodySmall)
-            Text("Email: ${user.email}", style = MaterialTheme.typography.titleMedium)
-            Text("Role: ${user.role}", style = MaterialTheme.typography.bodyMedium)
+            Text("User: ${data.user.email}", style = MaterialTheme.typography.titleMedium)
+            Text("Role: ${data.user.role}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+            
+            if (data.subscriptions.isEmpty()) {
+                Text("No subscriptions", style = MaterialTheme.typography.bodySmall)
+            } else {
+                data.subscriptions.forEach { sub ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text("- ${sub.name}", style = MaterialTheme.typography.bodyMedium)
+                        Text("${sub.amount} €", style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+            }
         }
     }
 }

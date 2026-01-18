@@ -1,6 +1,7 @@
 package fr.isep.subscout.ui
 
-import fr.isep.subscout.data.local.SubscriptionEntity
+import fr.isep.subscout.data.model.Subscription
+import fr.isep.subscout.data.repository.AuthRepository
 import fr.isep.subscout.data.repository.SubscriptionRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOf
@@ -20,6 +21,9 @@ class MainViewModelTest {
 
     @Mock
     private lateinit var repository: SubscriptionRepository
+    
+    @Mock
+    private lateinit var authRepository: AuthRepository
 
     private lateinit var viewModel: MainViewModel
     private val testDispatcher = StandardTestDispatcher()
@@ -29,9 +33,10 @@ class MainViewModelTest {
         MockitoAnnotations.openMocks(this)
         Dispatchers.setMain(testDispatcher)
         
-        `when`(repository.allSubscriptions).thenReturn(flowOf(emptyList()))
+        // Mock behaviors
+        `when`(repository.mySubscriptions).thenReturn(flowOf(emptyList()))
         
-        viewModel = MainViewModel(repository)
+        viewModel = MainViewModel(authRepository, repository)
     }
 
     @After
@@ -41,8 +46,8 @@ class MainViewModelTest {
 
     @Test
     fun `initial state is empty`() = runTest {
-        val subscriptions = viewModel.subscriptions.value
-        assertEquals(emptyList<SubscriptionEntity>(), subscriptions)
+        val subscriptions = viewModel.mySubscriptions.value
+        assertEquals(emptyList<Subscription>(), subscriptions)
     }
 
     // Add more tests as needed, e.g. verifying addSubscription calls repository

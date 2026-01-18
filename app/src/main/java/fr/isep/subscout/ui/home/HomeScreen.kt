@@ -1,5 +1,7 @@
 package fr.isep.subscout.ui.home
 
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -7,16 +9,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import fr.isep.subscout.R
 import fr.isep.subscout.data.model.Subscription
 import fr.isep.subscout.ui.MainViewModel
+import fr.isep.subscout.util.LogoHelper
 
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -36,6 +41,8 @@ fun HomeScreen(
     
     val userRole by viewModel.userRole.collectAsState()
 
+    var showLanguageMenu by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,6 +59,39 @@ fun HomeScreen(
                     }
                 },
                 actions = {
+                    // Language Switcher
+                    Box {
+                        IconButton(onClick = { showLanguageMenu = true }) {
+                            Icon(Icons.Default.Settings, contentDescription = "Language")
+                        }
+                        DropdownMenu(
+                            expanded = showLanguageMenu,
+                            onDismissRequest = { showLanguageMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("English") },
+                                onClick = {
+                                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
+                                    showLanguageMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("Français") },
+                                onClick = {
+                                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("fr"))
+                                    showLanguageMenu = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("Español") },
+                                onClick = {
+                                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("es"))
+                                    showLanguageMenu = false
+                                }
+                            )
+                        }
+                    }
+
                     if (userRole == "admin") {
                         TextButton(onClick = onAdminClick) {
                             Text("Admin")
@@ -97,7 +137,7 @@ fun HomeScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Total Monthly Expenses",
+                        text = stringResource(R.string.total_cost, ""), // Hack to get prefix
                         style = MaterialTheme.typography.labelMedium
                     )
                     Text(
@@ -149,16 +189,21 @@ fun SubscriptionItem(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Logo with Fallback
-            // If the Image fails to load, we can show an initial or icon
-            coil.compose.AsyncImage(
-                model = fr.isep.subscout.util.LogoHelper.getLogoUrl(subscription.name),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(48.dp)
-                    .padding(end = 16.dp),
-                error = androidx.compose.ui.res.painterResource(android.R.drawable.ic_menu_info_details) // Fallback system icon
-            )
+            // Local Logo Logic
+            val logoRes = LogoHelper.getLogoResId(subscription.name)
+            if (logoRes != null) {
+                androidx.compose.foundation.Image(
+                    painter = painterResource(id = logoRes),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(48.dp)
+                        .padding(end = 16.dp)
+                )
+            } else {
+                // Display nothing as requested (removed Placeholder)
+                // Spacer(modifier = Modifier.width(48.dp)) // Optional: preserve spacing? 
+                // User said "it will display nothing", so maybe just no image.
+            }
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(text = subscription.name, style = MaterialTheme.typography.titleMedium)

@@ -14,7 +14,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
 import fr.isep.subscout.ui.MainViewModel
 import fr.isep.subscout.util.LogoHelper
 import java.util.Calendar
@@ -75,12 +74,15 @@ fun EditSubscriptionScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 // Logo Preview
-                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    AsyncImage(
-                        model = LogoHelper.getLogoUrl(name),
-                        contentDescription = "Logo",
-                        modifier = Modifier.size(80.dp)
-                    )
+                val logoRes = LogoHelper.getLogoResId(name)
+                if (logoRes != null) {
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        androidx.compose.foundation.Image(
+                            painter = androidx.compose.ui.res.painterResource(id = logoRes),
+                            contentDescription = "Logo",
+                            modifier = Modifier.size(80.dp)
+                        )
+                    }
                 }
 
                 OutlinedTextField(

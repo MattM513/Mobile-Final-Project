@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SubScout</string>
+    <string name="home_title">Suscripciones</string>
+    <string name="total_cost">Costo Mensual Total: %s</string>
+    <string name="add_subscription">Añadir Suscripción</string>
+    <string name="name">Nombre</string>
+    <string name="amount">Monto</string>
+    <string name="currency">Moneda</string>
+    <string name="renewal_date">Próxima Renovación</string>
+    <string name="save">Guardar</string>
+    <string name="loading">Cargando...</string>
+    <string name="error">Error</string>
+    <string name="no_subscriptions">No hay suscripciones todavía</string>
+</resources>

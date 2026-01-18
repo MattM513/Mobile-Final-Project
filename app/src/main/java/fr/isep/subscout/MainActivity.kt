@@ -16,8 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import fr.isep.subscout.ui.theme.SubscoutTheme
 // -------------------------------
 
+import androidx.appcompat.app.AppCompatActivity
+
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
