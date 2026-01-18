@@ -59,7 +59,7 @@ graph LR
 
 ## Screenshots
 
-| Home Screen | Add Subscription | Admin Dashboard |
+| Login Screen | Add Subscription | Home Screen |
 |:-----------:|:----------------:|:---------------:|
 | <img width="220" height="487" alt="image" src="https://github.com/user-attachments/assets/3063ae10-bfec-44db-914b-79ba937ad069" /> | <img width="215" height="484" alt="image" src="https://github.com/user-attachments/assets/4fa40c8d-a1ae-47a7-a465-41fa03622c9c" /> |<img width="214" height="484" alt="image" src="https://github.com/user-attachments/assets/a9114d76-91b0-4fc1-bdd4-517f1931445e" /> |
 
