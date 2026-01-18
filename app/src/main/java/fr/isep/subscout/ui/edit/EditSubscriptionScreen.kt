@@ -52,7 +52,7 @@ fun EditSubscriptionScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Edit Subscription") },
+                title = { Text(androidx.compose.ui.res.stringResource(fr.isep.subscout.R.string.edit_subscription)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -63,7 +63,7 @@ fun EditSubscriptionScreen(
     ) { paddingValues ->
         if (subscription == null) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Subscription not found")
+                Text(androidx.compose.ui.res.stringResource(fr.isep.subscout.R.string.subscription_not_found))
             }
         } else {
             Column(
@@ -88,14 +88,14 @@ fun EditSubscriptionScreen(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Name") },
+                    label = { Text(androidx.compose.ui.res.stringResource(fr.isep.subscout.R.string.name)) },
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 OutlinedTextField(
                     value = amount,
                     onValueChange = { amount = it },
-                    label = { Text("Amount (EUR)") },
+                    label = { Text(androidx.compose.ui.res.stringResource(fr.isep.subscout.R.string.amount) + " (EUR)") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -105,7 +105,7 @@ fun EditSubscriptionScreen(
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondaryContainer, contentColor = MaterialTheme.colorScheme.onSecondaryContainer)
                 ) {
-                    Text("Renewal: ${java.text.SimpleDateFormat("dd/MM/yyyy").format(Date(renewalDate))}")
+                    Text("${androidx.compose.ui.res.stringResource(fr.isep.subscout.R.string.renewal_date)}: ${java.text.SimpleDateFormat("dd/MM/yyyy").format(Date(renewalDate))}")
                 }
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -124,7 +124,7 @@ fun EditSubscriptionScreen(
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Save Changes")
+                    Text(androidx.compose.ui.res.stringResource(fr.isep.subscout.R.string.save_changes))
                 }
             }
         }

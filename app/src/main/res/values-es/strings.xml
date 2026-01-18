@@ -12,4 +12,8 @@
     <string name="loading">Cargando...</string>
     <string name="error">Error</string>
     <string name="no_subscriptions">No hay suscripciones todavía</string>
+    <string name="edit_subscription">Editar Suscripción</string>
+    <string name="save_changes">Guardar Cambios</string>
+    <string name="next_payment">Próximo:</string>
+    <string name="subscription_not_found">Suscripción no encontrada</string>
 </resources>

@@ -11,4 +11,8 @@
     <string name="loading">Loading...</string>
     <string name="error">Error</string>
     <string name="no_subscriptions">No subscriptions yet</string>
+    <string name="edit_subscription">Edit Subscription</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="next_payment">Next:</string>
+    <string name="subscription_not_found">Subscription not found</string>
 </resources>

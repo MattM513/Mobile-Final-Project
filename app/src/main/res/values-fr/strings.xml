@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SubScout</string>
     <string name="home_title">Abonnements</string>
@@ -11,4 +12,8 @@
     <string name="loading">Chargement...</string>
     <string name="error">Erreur</string>
     <string name="no_subscriptions">Pas encore d\'abonnements</string>
+    <string name="edit_subscription">Modifier l\'abonnement</string>
+    <string name="save_changes">Enregistrer les modifications</string>
+    <string name="next_payment">Prochain:</string>
+    <string name="subscription_not_found">Abonnement introuvable</string>
 </resources>

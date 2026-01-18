@@ -210,7 +210,7 @@ fun SubscriptionItem(
                 
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 Text(
-                    text = "Next: ${dateFormat.format(Date(subscription.renewalDate))}",
+                    text = "${stringResource(R.string.next_payment)} ${dateFormat.format(Date(subscription.renewalDate))}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
