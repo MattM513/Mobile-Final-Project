@@ -1,19 +1,19 @@
-# SubScout - Subscription Management App 📱💸
+# SubScout - Subscription Management App
 
 **SubScout** is a modern Android application designed to help users track their recurring subscriptions, monitor monthly expenses, and avoid "subscription fatigue". Built with **Kotlin** and **Jetpack Compose**, it features an offline-first architecture synchronized with **Firebase**.
 
-## ✨ Features
+## Features
 
 - ** Subscription Tracking**: Add, Edit, and Delete subscriptions (Netflix, Spotify, Gym, etc.).
-- **💰 Budget Overview**: Real-time calculation of total monthly expenses.
-- **🔌 Offline-First**: Works completely without internet using a local **Room Database**. Syncs to cloud when online.
-- **🎨 Smart Logos**: Automatic local logo detection for popular services (Netflix, Prime, Disney+, etc.).
-- **🔐 User & Admin Roles**:
+- ** Budget Overview**: Real-time calculation of total monthly expenses.
+- ** Offline-First**: Works completely without internet using a local **Room Database**. Syncs to cloud when online.
+- ** Smart Logos**: Automatic local logo detection for popular services (Netflix, Prime, Disney+, etc.).
+- ** User & Admin Roles**:
   - **Users**: Manage personal subscriptions.
   - **Admins**: Dedicated dashboard to view user statistics and data.
-- **🌍 Internationalization**: Fully translated into **English**, **French**, and **Spanish** with in-app switching.
+- ** Internationalization**: Fully translated into **English**, **French**, and **Spanish** with in-app switching.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Language**: Kotlin 2.0+
 - **UI**: [Jetpack Compose](https://developer.android.com/jetpack/compose) (Material Design 3)
@@ -26,7 +26,7 @@
 - **Navigation**: Navigation Compose
 - **Images**: Custom Vector Assets (optimized for performance)
 
-## 🚀 Setup & Installation
+## Setup & Installation
 
 1.  **Clone the repository**:
     ```bash
@@ -34,7 +34,7 @@
     ```
 2.  **Firebase Configuration** (Critical):
     *   This project requires a `google-services.json` file.
-    *   Create a project in the [Firebase Console](https://console.firebase.google.com/).
+    *   If you do not have it due to gitignore, create a project in the [Firebase Console](https://console.firebase.google.com/).
     *   Enable **Authentication** (Email/Password).
     *   Enable **Firestore Database**.
     *   Download `google-services.json` and place it in the `app/` folder.
@@ -43,7 +43,7 @@
     *   Sync Gradle files.
     *   Run on an Emulator or Physical Device (Min SDK 24).
 
-## 🏗️ Architecture
+## Architecture
 
 The app follows the **Unidirectional Data Flow (UDF)** principle:
 
@@ -57,13 +57,13 @@ graph LR
     VM -->|State| UI
 ```
 
-## 📸 Screenshots
+## Screenshots
 
-| Home Screen | Add Subscription | Admin Dashboard |
+| Login Screen | Add Subscription | Home Screen |
 |:-----------:|:----------------:|:---------------:|
-| *(Add Image)* | *(Add Image)* | *(Add Image)* |
+| <img width="220" height="487" alt="image" src="https://github.com/user-attachments/assets/3063ae10-bfec-44db-914b-79ba937ad069" /> | <img width="215" height="484" alt="image" src="https://github.com/user-attachments/assets/4fa40c8d-a1ae-47a7-a465-41fa03622c9c" /> |<img width="214" height="484" alt="image" src="https://github.com/user-attachments/assets/a9114d76-91b0-4fc1-bdd4-517f1931445e" /> |
 
-## 👥 Contributors
+## Contributors
 
 *   **Matis Bader** - *Mobile Development Student*
 *   **Alice De Vallombreuse** - *Mobile Development Student*
